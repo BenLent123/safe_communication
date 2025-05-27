@@ -1,0 +1,13 @@
+ACTUAL TODOS
+- needs method of getting server ip or some --> connect
+- encryption
+- buffer protection work
+- two way same time chat
+
+
+TEXT
+- ip needs to be shared
+- ports need to match
+- symmetric encrpytion aes via SSL
+- use threads to send and recieve at the same time or fnctl.h with poll and sdin
+
