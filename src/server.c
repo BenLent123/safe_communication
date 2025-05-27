@@ -7,17 +7,17 @@
 #include <poll.h>
 #define MAX_LENGTH 64
 
+// structure to describe internet socketaddress
+typedef struct {
+    unsigned long socketAddress; // Internet address
+}InetAddressInfo;
+
 // structure to describe internet socket information
 typedef struct{
     short inetSocketFamily; // Address family -> short as only 16bit number needed
     unsigned short inetSocketPort; // Port number -> same here but port will always be positive
     InetAddressInfo InetSocketAddress; // Internet address link to the other struct
 }InetSocketInfo;
-
-// structure to describe internet socketaddress
-typedef struct {
-    unsigned long socketAddress; // Internet address
-}InetAddressInfo;
 
 
 int InitSocket(int *socketfd) {
@@ -76,7 +76,7 @@ int AcceptConnection(int socketfd, InetSocketInfo *socketInfo){
 }
 
 //poll function to regulate recv() and send()
-int CommunicationPoll(int timeout, int socketfd){
+int ServerCommunicationPoll(int timeout, int socketfd){
     struct pollfd pfd; // expected struct by poll.h
     pfd.fd = socketfd;
     pfd.events = POLLIN | POLLOUT ; // to events to signify write or read ready
@@ -104,7 +104,7 @@ int CommunicationPoll(int timeout, int socketfd){
 }
 
 // decides based on poll if you can write or read
-void Communicate(int clientfd, char readTextBuffer[MAX_LENGTH], char sendTextBuffer[MAX_LENGTH], int pollResult){
+void ServerCommunicate(int clientfd, char readTextBuffer[MAX_LENGTH], char sendTextBuffer[MAX_LENGTH], int pollResult){
     if(pollResult == 1){
         ssize_t bytesReceived = recv(clientfd, readTextBuffer, MAX_LENGTH - 1, 0);
         if (bytesReceived > 0) {
@@ -163,7 +163,7 @@ int Setup(int *socketfd, InetSocketInfo *socketInfo){
     return clientfd;
 }
 
-int ServerMainFunc (int argc, char *argv[]) {
+int ServerMainFunc (void) {
     int socketfd;
     int clientfd;
     int pollResult;
@@ -182,8 +182,8 @@ int ServerMainFunc (int argc, char *argv[]) {
     }
 
     while(1){
-        pollResult = CommunicationPoll(5000,clientfd);
-        Communicate(clientfd, readTextBuffer,sendTextBuffer,pollResult);
+        pollResult = ServerCommunicationPoll(5000,clientfd);
+        ServerCommunicate(clientfd, readTextBuffer,sendTextBuffer,pollResult);
         if(strcmp(sendTextBuffer, "goodbye") == 0){
         break;
         }

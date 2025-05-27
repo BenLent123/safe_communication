@@ -14,11 +14,11 @@ int main(int argc, char *argv[]) {
         switch(cmd){
             case 'h':
                 printf("You chose to host.\n");
-                ServerMainFunc(argc, argv);
+                ServerMainFunc();
                 break;
             case 'j':
                 printf("You chose to join.\n");
-                ClientMainFunc(argc, argv);
+                ClientMainFunc();
                 break;
             case 'q':
                 printf("Quitting...\n");

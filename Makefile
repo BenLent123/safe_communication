@@ -1,16 +1,13 @@
 CC=gcc
 CFLAGS=-Wall -Wextra -g
-SRC=src/server.c src/communication.c
+SRC=src/server.c src/client.c src/communication.c
 OBJ=$(SRC:.c=.o)
-TARGET=server
+TARGET=communication
 
 all: $(TARGET)
 
-$(TARGET): $(OBJ)
-    $(CC) $(CFLAGS) -o $@ $^
-
-%.o: %.c
-    $(CC) $(CFLAGS) -c $< -o $@
+$(TARGET): $(SRC)
+	$(CC) $(SRC) $(CFLAGS) -o $(TARGET)
 
 clean:
-    rm -f $(OBJ) $(TARGET)
+	rm -f $(TARGET)

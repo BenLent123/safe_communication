@@ -5,9 +5,10 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <poll.h>
+#include <arpa/inet.h>
 #define MAX_LENGTH 64
 
-int CommunicationPoll(int timeout, int socketfd){
+int ClientCommunicationPoll(int timeout, int socketfd){
     struct pollfd pfd;
     pfd.fd = socketfd;
     pfd.events = POLLIN | POLLOUT;
@@ -31,7 +32,7 @@ int CommunicationPoll(int timeout, int socketfd){
 }
 
 // decides based on poll if you can write or read
-void Communicate(int socketfd, char readTextBuffer[MAX_LENGTH], char sendTextBuffer[MAX_LENGTH], int pollResult){
+void ClientCommunicate(int socketfd, char readTextBuffer[MAX_LENGTH], char sendTextBuffer[MAX_LENGTH], int pollResult){
     if(pollResult == 1){
         ssize_t bytesReceived = recv(socketfd, readTextBuffer, MAX_LENGTH - 1, 0);
         if (bytesReceived > 0) {
@@ -81,7 +82,7 @@ int setup(int *socketfd, struct sockaddr_in *server_addr){
     return 0;
 }
 
-int ClientMainFunc (int argc, char *argv[]) {
+int ClientMainFunc (void) {
     int socketfd;
     int pollResult;
     struct sockaddr_in server_addr;
@@ -94,11 +95,11 @@ int ClientMainFunc (int argc, char *argv[]) {
     }
 
     while(1){
-        pollResult = CommunicationPoll(5000, socketfd); // 5 seconds timeout
+        pollResult = ClientCommunicationPoll(5000, socketfd); // 5 seconds timeout
         if (pollResult == -1) {
             break;
         }
-        Communicate(socketfd, readTextBuffer, sendTextBuffer, pollResult);
+        ClientCommunicate(socketfd, readTextBuffer, sendTextBuffer, pollResult);
         if(strcmp(sendTextBuffer, "goodbye") == 0){
             break;
         }

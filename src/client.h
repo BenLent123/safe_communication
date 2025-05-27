@@ -5,9 +5,9 @@
 
 #define MAX_LENGTH 64
 
-int CommunicationPoll(int timeout, int socketfd);
-void Communicate(int socketfd, char readTextBuffer[MAX_LENGTH], char sendTextBuffer[MAX_LENGTH], int pollResult);
+int ClientCommunicationPoll(int timeout, int socketfd);
+void ClientCommunicate(int socketfd, char readTextBuffer[MAX_LENGTH], char sendTextBuffer[MAX_LENGTH], int pollResult);
 int setup(int *socketfd, struct sockaddr_in *server_addr);
-int ClientMainFunc(int argc, char *argv[]);
+int ClientMainFunc(void);
 
 #endif // CLIENT_H
