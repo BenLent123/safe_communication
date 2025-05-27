@@ -22,6 +22,6 @@ int AcceptConnection(int socketfd, InetSocketInfo *socketInfo);
 int CommunicationPoll(int timeout, int socketfd);
 void Communicate(int clientfd, char readTextBuffer[MAX_LENGTH], char sendTextBuffer[MAX_LENGTH], int pollResult);
 void CloseCommunication(int socketfd, int clientfd);
-int setup(int *socketfd, InetSocketInfo *socketInfo);
-
+int Setup(int *socketfd, InetSocketInfo *socketInfo);
+int ServerMainFunc(int argc, char *argv[]);
 #endif // SERVER_H

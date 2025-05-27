@@ -138,7 +138,7 @@ void CloseCommunication(int socketfd, int clientfd){
     return;
 }
 
-int setup(int *socketfd, InetSocketInfo *socketInfo){
+int Setup(int *socketfd, InetSocketInfo *socketInfo){
      if (InitSocket(socketfd) != 0) {
         // Handle error, exit or return
         fprintf(stderr, "Failed to initialize socket\n");
@@ -163,7 +163,7 @@ int setup(int *socketfd, InetSocketInfo *socketInfo){
     return clientfd;
 }
 
-int main (int argc, char *argv[]) {
+int ServerMainFunc (int argc, char *argv[]) {
     int socketfd;
     int clientfd;
     int pollResult;
@@ -175,7 +175,7 @@ int main (int argc, char *argv[]) {
     socketInfo.inetSocketPort = 12345; // Example port
     socketInfo.InetSocketAddress.socketAddress = INADDR_ANY; // Listen on all interfaces
 
-    clientfd = setup(&socketfd,&socketInfo);
+    clientfd = Setup(&socketfd,&socketInfo);
     if(clientfd < 0){
         fprintf(stderr, "failed setup\n");
         return -1;
