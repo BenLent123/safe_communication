@@ -62,7 +62,7 @@ int ListenForConnection(int socketfd){
 }
 
 
-int AcceptConnection(int socketfd, InetSocketInfo *socketInfo){
+int AcceptConnection(int socketfd){
     struct sockaddr_in client_addr; // creates a structure expected by <netinet/in.h>
     socklen_t client_len = sizeof(client_addr); // again
 
@@ -154,7 +154,7 @@ int Setup(int *socketfd, InetSocketInfo *socketInfo){
         fprintf(stderr, "Failed to listen for connection\n");
         return -1;
     }
-    int clientfd = AcceptConnection(*socketfd,socketInfo);
+    int clientfd = AcceptConnection(*socketfd);
     if (clientfd< 0) {
         // Handle error, exit or return
         fprintf(stderr, "Failed to Accept connection to socket\n");
@@ -170,7 +170,7 @@ int ServerMainFunc (void) {
     char readTextBuffer[MAX_LENGTH];
     char sendTextBuffer[MAX_LENGTH];
     InetSocketInfo socketInfo;
-    InetAddressInfo addrInfo;
+    //InetAddressInfo addrInfo;
     socketInfo.inetSocketFamily = AF_INET;
     socketInfo.inetSocketPort = 12345; // Example port
     socketInfo.InetSocketAddress.socketAddress = INADDR_ANY; // Listen on all interfaces
