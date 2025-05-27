@@ -61,7 +61,7 @@ void ClientCommunicate(int socketfd, char readTextBuffer[MAX_LENGTH], char sendT
 
 
 int setup(int *socketfd, struct sockaddr_in *server_addr, char ipAddress[16], int port){
-    short ip;
+    
     *socketfd = socket(AF_INET, SOCK_STREAM, 0);
     if (*socketfd < 0) {
         perror("socket creation failed");
@@ -72,13 +72,13 @@ int setup(int *socketfd, struct sockaddr_in *server_addr, char ipAddress[16], in
     server_addr->sin_family = AF_INET;
     server_addr->sin_port = htons(port); // Replace with your port
 
-    if(ipAddress != "/0"){
-        ip = ipAddress;
-    }else{
-        ip = "127.0.0.1";
-    }
+    const char *ip = (ipAddress && strlen(ipAddress)>0) ? ipAddress : "127.0.0.1";
 
-    inet_pton(AF_INET, ip, &server_addr->sin_addr); // Replace with your server IP or if locally run its fine to have localhost
+    if (inet_pton(AF_INET, ip, &server_addr->sin_addr) <= 0 ){ // Replace with your server IP or if locally run its fine to have localhost
+        perror("invalid ip address");
+        close(*socketfd);
+        return -1;
+    } 
 
     if (connect(*socketfd, (struct sockaddr*)server_addr, sizeof(*server_addr)) < 0) {
         perror("connect failed");
