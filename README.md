@@ -7,7 +7,7 @@ the idea is to enable simple two-way communication between two pcs, furthermore 
 communication occur at a very basic but extremly secure method via hashing the messages where ip,ports and hashkeys have to be exchange 
 differently (like in person or idk). therefore stuff becomes "unhackable".
 
-- using:
+- using these libs:
     #include <stdio.h>
     #include <stdlib.h>
     #include <string.h>
