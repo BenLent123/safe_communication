@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
                 break;
             case 'j':
                 printf("You chose to join.\n");
-                printf("input your server IP (ex = 127.0.0.1).\n");
+                printf("input your server IP (ex = 127.0.0.1), leave empty for localhost.\n");
                 scanf(" %s",&serverIpAddress);
                 printf("input your server port (ex = 8080).\n");
                 scanf(" %d",&serverPort);
