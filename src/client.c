@@ -82,7 +82,7 @@ int setup(int *socketfd, struct sockaddr_in *server_addr){
     return 0;
 }
 
-int ClientMainFunc (void) {
+int ClientMainFunc (char ipAdress[10]) {
     int socketfd;
     int pollResult;
     struct sockaddr_in server_addr;

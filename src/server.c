@@ -172,7 +172,7 @@ int ServerMainFunc (void) {
     InetSocketInfo socketInfo;
     //InetAddressInfo addrInfo;
     socketInfo.inetSocketFamily = AF_INET;
-    socketInfo.inetSocketPort = 12345; // Example port
+    socketInfo.inetSocketPort = 8080; // Example port
     socketInfo.InetSocketAddress.socketAddress = INADDR_ANY; // Listen on all interfaces
 
     clientfd = Setup(&socketfd,&socketInfo);
