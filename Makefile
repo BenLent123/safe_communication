@@ -1,8 +1,8 @@
 CC=gcc
 CFLAGS=-Wall -Wextra -g
-SRC=src/server.c src/client.c src/communication.c
+SRC=src/server.c src/client.c src/interface.c
 OBJ=$(SRC:.c=.o)
-TARGET=communication
+TARGET=interface
 
 all: $(TARGET)
 

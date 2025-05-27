@@ -8,20 +8,26 @@
 
 int main(int argc, char *argv[]) {
     char cmd;
-    char ipAddress[10];
-        printf("input your IP (ex = 12.0.2.1)\n");
-        scanf(" %s",&ipAddress);
+    char serverIpAddress[16];
+    int serverPort;
+        
     do {
         printf("host or join? type \"h\" to host and \"j\" to join or \"q\" to quit\n");
         scanf(" %c", &cmd); // The space before %c skips whitespace (including newlines)
         switch(cmd){
             case 'h':
                 printf("You chose to host.\n");
-                ServerMainFunc();
+                printf("input a port to use (ex = 8080). \n");
+                scanf(" %d",&serverPort);
+                ServerMainFunc(serverPort);
                 break;
             case 'j':
                 printf("You chose to join.\n");
-                ClientMainFunc(ipAddress);
+                printf("input your server IP (ex = 127.0.0.1).\n");
+                scanf(" %s",&serverIpAddress);
+                printf("input your server port (ex = 8080).\n");
+                scanf(" %d",&serverPort);
+                ClientMainFunc(serverIpAddress, serverPort);
                 break;
             case 'q':
                 printf("Quitting...\n");

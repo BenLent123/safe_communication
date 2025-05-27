@@ -60,7 +60,7 @@ void ClientCommunicate(int socketfd, char readTextBuffer[MAX_LENGTH], char sendT
 }
 
 
-int setup(int *socketfd, struct sockaddr_in *server_addr){
+int setup(int *socketfd, struct sockaddr_in *server_addr, char ipAddress[10], int port){
 
     *socketfd = socket(AF_INET, SOCK_STREAM, 0);
     if (*socketfd < 0) {
@@ -70,8 +70,8 @@ int setup(int *socketfd, struct sockaddr_in *server_addr){
 
     memset(server_addr, 0, sizeof(*server_addr));
     server_addr->sin_family = AF_INET;
-    server_addr->sin_port = htons(12345); // Replace with your port
-    inet_pton(AF_INET, "127.0.0.1", &server_addr->sin_addr); // Replace with your server IP
+    server_addr->sin_port = htons(8080); // Replace with your port
+    inet_pton(AF_INET, "127.0.0.1", &server_addr->sin_addr); // Replace with your server IP or if locally run its fine to have localhost
 
     if (connect(*socketfd, (struct sockaddr*)server_addr, sizeof(*server_addr)) < 0) {
         perror("connect failed");
@@ -82,14 +82,14 @@ int setup(int *socketfd, struct sockaddr_in *server_addr){
     return 0;
 }
 
-int ClientMainFunc (char ipAdress[10]) {
+int ClientMainFunc (char ipAdress[16], int port) {
     int socketfd;
     int pollResult;
     struct sockaddr_in server_addr;
     char readTextBuffer[MAX_LENGTH];
     char sendTextBuffer[MAX_LENGTH];
 
-    if(setup(&socketfd, &server_addr) != 0){
+    if(setup(&socketfd, &server_addr, ipAdress[10], port) != 0){
         fprintf(stderr,"error in setup\n");
         return -1;
     }

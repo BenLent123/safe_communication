@@ -163,7 +163,7 @@ int Setup(int *socketfd, InetSocketInfo *socketInfo){
     return clientfd;
 }
 
-int ServerMainFunc (void) {
+int ServerMainFunc (int serverPort) {
     int socketfd;
     int clientfd;
     int pollResult;
@@ -172,7 +172,7 @@ int ServerMainFunc (void) {
     InetSocketInfo socketInfo;
     //InetAddressInfo addrInfo;
     socketInfo.inetSocketFamily = AF_INET;
-    socketInfo.inetSocketPort = 8080; // Example port
+    socketInfo.inetSocketPort = 8080; // Example port // serverport set here
     socketInfo.InetSocketAddress.socketAddress = INADDR_ANY; // Listen on all interfaces
 
     clientfd = Setup(&socketfd,&socketInfo);
