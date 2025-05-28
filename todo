@@ -1,4 +1,8 @@
 ACTUAL TODOS
+
+- fix makefile
+
+
 - needs method of getting server ip or some --> connect
 - encryption
 - buffer protection work
