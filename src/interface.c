@@ -2,17 +2,23 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <openssl/aes.h>
 #include "server.h"
 #include "client.h"
 #include "common.h"
 
 
 int main(int argc, char *argv[]) {
+    AES_KEY encrpytionKey,decryptionKey;
     char cmd;
+    char key[16];
     char serverIpAddress[16];
     int serverPort;
         
     do {
+        printf("enter the encryption key, both parties need the same key (16bits long).\n");
+        scanf(" %c",&key);
+        SetEncryptionKeys(key,&encrpytionKey,&decryptionKey);
         printf("host or join? type \"h\" to host and \"j\" to join or \"q\" to quit\n");
         scanf(" %c", &cmd); // The space before %c skips whitespace (including newlines)
         switch(cmd){

@@ -35,11 +35,12 @@ int CommunicationPoll(int timeout, int socketfd){
 }
 
 // decides based on poll if you can write or read
-void Communicate(int socketfd, char readTextBuffer[MAX_LENGTH], char sendTextBuffer[MAX_LENGTH], int pollResult){
+void Communicate(int socketfd, char readTextBuffer[MAX_LENGTH], char sendTextBuffer[MAX_LENGTH], int pollResult, AES_KEY encryptionKey,AES_KEY decryptionKey){
     if(pollResult == 1){
         ssize_t bytesReceived = recv(socketfd, readTextBuffer, MAX_LENGTH - 1, 0);
         if (bytesReceived > 0) {
             readTextBuffer[bytesReceived] = '\0'; // Null-terminate for safe printing
+            //Decrypt(decryptionKey, readTextBuffer);
             printf("Received: %s\n", readTextBuffer);
         } else if (bytesReceived == 0) {
             printf("Client disconnected.\n");
@@ -57,6 +58,7 @@ void Communicate(int socketfd, char readTextBuffer[MAX_LENGTH], char sendTextBuf
             if (len > 0 && sendTextBuffer[len-1] == '\n') {
                 sendTextBuffer[len-1] = '\0';
             }
+            //Encrypt(encryptionKey, sendTextBuffer);
             send(socketfd, sendTextBuffer, strlen(sendTextBuffer) + 1, 0);
         }
     }
