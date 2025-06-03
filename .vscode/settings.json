@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "in.h": "c",
-        "rand.h": "c"
+        "rand.h": "c",
+        "inet.h": "c"
     }
 }

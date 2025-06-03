@@ -72,20 +72,14 @@ void SetEncryptionKeys(unsigned const char key[16], AES_KEY *encrpytionKey, AES_
 
 }
 
-char Encrypt(AES_KEY encryptionKey, char inputMessage[MAX_LENGTH]){
+char Encrypt(AES_KEY encryptionKey, char *inputMessage[MAX_LENGTH], char *out){
     
-    char out[MAX_LENGTH];
-
     AES_encrypt(inputMessage, out, &encryptionKey);  
-
-    return out;
    
 }
 
-void Decrypt(AES_KEY decryptionKey, char inputMessage[MAX_LENGTH]){
+void Decrypt(AES_KEY decryptionKey, char *inputMessage[MAX_LENGTH], char *decoded){
 
-    char decoded[MAX_LENGTH];
-   
     AES_decrypt(inputMessage, decoded, &decryptionKey);
     
 }
