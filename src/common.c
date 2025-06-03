@@ -60,6 +60,7 @@ void Communicate(int socketfd, char readTextBuffer[MAX_LENGTH], char sendTextBuf
                 sendTextBuffer[len-1] = '\0';
                 len--;
             }
+        
             // Pad to multiple of 16 bytes
             size_t paddedLen = ((len + AES_BLOCK_SIZE - 1) / AES_BLOCK_SIZE) * AES_BLOCK_SIZE;
             memset(sendTextBuffer + len, 0, paddedLen - len);
