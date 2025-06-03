@@ -9,32 +9,35 @@
 
 
 int main(int argc, char *argv[]) {
-    AES_KEY encrpytionKey,decryptionKey;
+    AES_KEY encrpytionKey, decryptionKey;
     char cmd;
-    char key[16];
+    char key[17]; // 16 chars + null terminator
     char serverIpAddress[16];
     int serverPort;
         
     do {
-        printf("enter the encryption key, both parties need the same key (16bits long).\n");
-        scanf(" %c",&key);
-        SetEncryptionKeys(key,&encrpytionKey,&decryptionKey);
+        printf("enter the encryption key, both parties need the same key (16 characters long).\n");
+        scanf("%16s", key);
+        if(strlen(key) != 16){
+            printf("key was not long enough");
+        }
+        SetEncryptionKeys((unsigned char*)key, &encrpytionKey, &decryptionKey);
         printf("host or join? type \"h\" to host and \"j\" to join or \"q\" to quit\n");
         scanf(" %c", &cmd); // The space before %c skips whitespace (including newlines)
         switch(cmd){
             case 'h':
                 printf("You chose to host.\n");
                 printf("input a port to use (ex = 8080). \n");
-                scanf(" %d",&serverPort);
-                ServerMainFunc(serverPort);
+                scanf(" %d", &serverPort);
+                ServerMainFunc(serverPort, &encrpytionKey, &decryptionKey);
                 break;
             case 'j':
                 printf("You chose to join.\n");
                 printf("input your server IP (ex = 127.0.0.1), leave empty for localhost.\n");
-                scanf(" %s",&serverIpAddress);
+                scanf(" %s", serverIpAddress);
                 printf("input your server port (ex = 8080).\n");
-                scanf(" %d",&serverPort);
-                ClientMainFunc(serverIpAddress, serverPort);
+                scanf(" %d", &serverPort);
+                ClientMainFunc(serverIpAddress, serverPort, &encrpytionKey, &decryptionKey);
                 break;
             case 'q':
                 printf("Quitting...\n");

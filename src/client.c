@@ -90,14 +90,14 @@ int setup(int *socketfd, struct sockaddr_in *server_addr, char ipAddress[16], in
     return 0;
 }
 
-int ClientMainFunc (char ipAdress[16], int port) {
+int ClientMainFunc (char ipAdress[16], int port, AES_KEY *encrpytionKey,AES_KEY *decryptionKey) {
     int socketfd;
     int pollResult;
     struct sockaddr_in server_addr;
     char readTextBuffer[MAX_LENGTH];
     char sendTextBuffer[MAX_LENGTH];
 
-    if(setup(&socketfd, &server_addr, ipAdress[16], port) != 0){
+    if(setup(&socketfd, &server_addr, ipAdress, port) != 0){
         fprintf(stderr,"error in setup\n");
         return -1;
     }
@@ -107,7 +107,7 @@ int ClientMainFunc (char ipAdress[16], int port) {
         if (pollResult == -1) {
             break;
         }
-        Communicate(socketfd, readTextBuffer, sendTextBuffer, pollResult);
+        Communicate(socketfd, readTextBuffer, sendTextBuffer, pollResult, encrpytionKey, decryptionKey);
         if(strcmp(sendTextBuffer, "goodbye") == 0){
             break;
         }

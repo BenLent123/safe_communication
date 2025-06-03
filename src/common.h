@@ -6,11 +6,12 @@
 #include <openssl/rand.h>
 #include <openssl/aes.h>
 #define MAX_LENGTH 64
+#define AES_BLOCK_SIZE 16
 
 int CommunicationPoll(int timeout, int socketfd);
-void Communicate(int socketfd, char readTextBuffer[MAX_LENGTH], char sendTextBuffer[MAX_LENGTH], int pollResult,AES_KEY encryptionKey, AES_KEY decryptionKey);
+void Communicate(int socketfd, char readTextBuffer[MAX_LENGTH], char sendTextBuffer[MAX_LENGTH], int pollResult,AES_KEY *encryptionKey, AES_KEY *decryptionKey);
 void SetEncryptionKeys(unsigned const char key[16], AES_KEY *encrpytionKey, AES_KEY *decryptionKey);
-char Encrypt(AES_KEY encryptionKey, char inputMessage[MAX_LENGTH]);
-char Decrypt(AES_KEY decryptionKey, char inputMessage[MAX_LENGTH]);
+void Encrypt(const AES_KEY *encryptionKey, const unsigned char *in, unsigned char *out);
+void Decrypt(const AES_KEY *decryptionKey, const unsigned char *in, unsigned char *out);
 
 #endif

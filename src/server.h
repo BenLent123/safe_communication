@@ -23,5 +23,5 @@ int AcceptConnection(int socketfd, InetSocketInfo *socketInfo);
 //void ServerCommunicate(int clientfd, char readTextBuffer[MAX_LENGTH], char sendTextBuffer[MAX_LENGTH], int pollResult);
 void CloseCommunication(int socketfd, int clientfd);
 int Setup(int *socketfd, InetSocketInfo *socketInfo);
-int ServerMainFunc(int serverPort);
+int ServerMainFunc(int serverPort, AES_KEY *encrpytionKey, AES_KEY *decryptionKey);
 #endif // SERVER_H

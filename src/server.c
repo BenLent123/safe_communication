@@ -164,7 +164,7 @@ int Setup(int *socketfd, InetSocketInfo *socketInfo){
     return clientfd;
 }
 
-int ServerMainFunc (int serverPort) {
+int ServerMainFunc (int serverPort, AES_KEY *encrpytionKey, AES_KEY *decryptionKey) {
     int socketfd;
     int clientfd;
     int pollResult;
@@ -188,8 +188,8 @@ int ServerMainFunc (int serverPort) {
         // if(strcmp(sendTextBuffer, "goodbye") == 0){
         // break;
         // }
-        pollResult = ommunicationPoll(5000,clientfd);
-        Communicate(clientfd, readTextBuffer,sendTextBuffer,pollResult);
+        pollResult = CommunicationPoll(5000,clientfd);
+        Communicate(clientfd, readTextBuffer,sendTextBuffer,pollResult, encrpytionKey, decryptionKey);
         if(strcmp(sendTextBuffer, "goodbye") == 0){
         break;
         }
