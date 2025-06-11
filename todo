@@ -1,0 +1,4 @@
+- make common.h easier to read 
+- include SDL for a window
+- maybe add jpg support idk
+- fix termination of chat with Q
