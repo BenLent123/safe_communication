@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include "client.h"
+#include "server.h"
 #include "common.h"
 
 #define MAX_BUFF_LEN 16

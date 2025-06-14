@@ -52,8 +52,8 @@ void ClientCloseEncryption(RSA *rsa, BIGNUM *bn, RSA *rsaOut, char *pubKeyClient
 
 // encryption split in two parts part 1 here so that client has key ready before server and 
 // send and recieve happen in the same order with client first then server!
-int ClientEncryptionSetupPart1(RSA **rsa, BIGNUM **bn, RSA **rsaOut,char **pubKeyClient,
-     size_t *pubKeyClientLen, int clientfd) {
+int ClientEncryptionSetupPart1(RSA **rsa, BIGNUM **bn,char **pubKeyClient,
+     size_t *pubKeyClientLen) {
     if (GenerateKeyPair(rsa, bn) < 0) {
         return -1;
     }
@@ -63,7 +63,7 @@ int ClientEncryptionSetupPart1(RSA **rsa, BIGNUM **bn, RSA **rsaOut,char **pubKe
     return 0;
 }
 // second part of encryption 
-int ClientEncryptionSetupPart2(RSA **rsa, BIGNUM **bn, RSA **rsaOut,char **pubKeyClient,
+int ClientEncryptionSetupPart2(RSA **rsaOut,char **pubKeyClient,
      size_t *pubKeyClientLen, int clientfd){
     if (SendPublicKey(clientfd, *pubKeyClientLen, *pubKeyClient) < 0) {
         return -1;
@@ -100,7 +100,7 @@ int ClientMainFunc(char *ipAdress, int serverPort, char *userName){
     char *pubKeyClient = NULL;
     size_t pubKeyClientLen = 0;
 
-    if (ClientEncryptionSetupPart1(&rsa, &bn, &rsaOut, &pubKeyClient, &pubKeyClientLen, socketfd) < 0) {
+    if (ClientEncryptionSetupPart1(&rsa, &bn, &pubKeyClient, &pubKeyClientLen) < 0) {
     return -1;
     }
 
@@ -109,7 +109,7 @@ int ClientMainFunc(char *ipAdress, int serverPort, char *userName){
         return -1;
     }
 
-    if (ClientEncryptionSetupPart2(&rsa, &bn, &rsaOut, &pubKeyClient, &pubKeyClientLen, socketfd) < 0) {
+    if (ClientEncryptionSetupPart2(&rsaOut, &pubKeyClient, &pubKeyClientLen, socketfd) < 0) {
         return -1;
     }
     

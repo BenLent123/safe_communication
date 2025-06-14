@@ -25,7 +25,7 @@ void ChatLoop(int socketfd, RSA *rsaOut, RSA *rsa, char *userName) {
     unsigned char decrypted[256]; // buffer used to decrypt messages
     printf("----CHAT BEGINS HERE-----.\n");
     while (1) {
-        int ret = poll(pfds, 2, -1);
+        int ret = poll(pfds, 2, -1); // the poll function handles two way chat checking for incoming and outgoing messages
         if (ret == -1) {
             perror("poll");
             break;
@@ -34,8 +34,12 @@ void ChatLoop(int socketfd, RSA *rsaOut, RSA *rsa, char *userName) {
         // Incoming encrypted message
         if (pfds[0].revents & POLLIN) {
             uint32_t net_len;
-            ssize_t r = recv(socketfd, &net_len, sizeof(net_len), MSG_WAITALL);
-            if (r != sizeof(net_len)) {
+            ssize_t recievedMessage = recv(socketfd, &net_len, sizeof(net_len), MSG_WAITALL);
+            if (recievedMessage == 0) {
+                printf("Connection closed by %s...\n", userName);
+                break;
+            }
+            if (recievedMessage != sizeof(net_len)) {
                 perror("recv encrypted length failed");
                 break;
             }
@@ -44,8 +48,8 @@ void ChatLoop(int socketfd, RSA *rsaOut, RSA *rsa, char *userName) {
                 fprintf(stderr, "Invalid encrypted length: %d\n", encryptedLen);
                 break;
             }
-            r = recv(socketfd, encrypted, encryptedLen, MSG_WAITALL);
-            if (r != encryptedLen) {
+            recievedMessage = recv(socketfd, encrypted, encryptedLen, MSG_WAITALL);
+            if (recievedMessage != encryptedLen) {
                 perror("recv encrypted data failed");
                 break;
             }
