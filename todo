@@ -1,4 +1,5 @@
-- make common.h easier to read 
-- include SDL for a window
-- maybe add jpg support idk
-- fix termination of chat with Q
+-- see your own username
+-- getting a message during writing terminates message
+-- make a groupchat part 
+-- two seperate streams handeling input and output (two threads)
+    - message gets overwritten
