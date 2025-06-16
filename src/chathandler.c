@@ -100,7 +100,7 @@ void ChatLoop(int socketfd, RSA *rsaOut, RSA *rsa, char *peerUserName, char *you
             if (*user_input_line) {
                 add_history(user_input_line);
 
-                // Send as "yourUserName:message"
+                // Send as "yourUserName:message" 
                 char sendBuffer[MAX_LENGTH * 2];
                 snprintf(sendBuffer, sizeof(sendBuffer), "%s:%s", yourUserName, user_input_line);
 

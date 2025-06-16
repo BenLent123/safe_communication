@@ -4,6 +4,7 @@
 
 This project is an exploration into openssl and the communication capabilities of C, by any means this project is not done nor.... fully memmory safe (memmory safety? whats that, just write that shiii out of bounds :3). This project uses sockets and encryption via openSSL to allow safe communication between a client and server (who is also another client), there is no inbetween connections one person is the "server" the other the "client". That is about it ! ^_^ enjoy
 
+THIS IS ALL CURRENTLY ONLY FOR LINUX
 ---
 
 ## Features
@@ -24,6 +25,13 @@ git clone https://github.com/benlent123/safe_communication.git
 cd safe_communication
 make
 ```
+
+---
+
+## Troubleshooting
+
+ - you need to use pc ports that are not in use 
+ - you might need to temporarily disable firewall as you are recieving connections as server (unsafe)
 
 ---
 
