@@ -8,7 +8,7 @@
 #include <openssl/pem.h>
 #include <openssl/err.h>
 #include "encryption.h"
-#include "common.h"
+#include "chathandler.h"
 
 #define MAX_LENGTH 64
 
@@ -158,7 +158,7 @@ int ServerUsernameHandler(char *userName, char *peerName, int clientfd){
     return 0;
 }
 // main function
-int ServerMainFunc (int serverPort, char *userName) {
+int ServerMainFunc (int serverPort, char *serverUserName) {
     int socketfd;
     int clientfd;
     char peerName[MAX_LENGTH];
@@ -182,11 +182,11 @@ int ServerMainFunc (int serverPort, char *userName) {
         return -1;
     }
 
-    if(ServerUsernameHandler(userName,peerName,clientfd)<0){
+    if(ServerUsernameHandler(serverUserName,peerName,clientfd)<0){
         return -1;
     }
 
-    ChatLoop(clientfd, rsaOut, rsa, peerName); // main chat loop
+    ChatLoop(clientfd, rsaOut, rsa, peerName, serverUserName); // main chat loop
 
     ServerCloseCommunication(socketfd, clientfd);
 

@@ -32,6 +32,6 @@ int ServerUsernameHandler(char *userName, char *peerName, int clientfd);
 int ServerEncryptionSetup(RSA **rsa, BIGNUM **bn, RSA **rsaOut,char **pubKeyClient,size_t *pubKeyClientLen, int clientfd);
 int ServerSetup(int *socketfd, InetSocketInfo *socketInfo);
 
-int ServerMainFunc(int serverPort, char *userName);
+int ServerMainFunc(int serverPort, char *serverUserName);
 
 #endif // SERVER_H

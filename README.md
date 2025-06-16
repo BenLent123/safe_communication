@@ -11,8 +11,9 @@ This project is an exploration into openssl and the communication capabilities o
 - Public Private Key encryption via OPENSSL
 - direct IP&PC Port communication between a server and client
 - username personalization
-- dynamic two-way chat experience using poll.h
+- dynamic two-way chat experience using poll.h (only 1 thread)
 - written all in c so consider insanity of doing this a feature
+- recieving during write does not interrupt writing
 
 ---
 

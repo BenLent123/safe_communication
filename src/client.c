@@ -9,7 +9,7 @@
 #include <openssl/pem.h>
 #include <openssl/err.h>
 #include "encryption.h"
-#include "common.h"
+#include "chathandler.h"
 
 #define MAX_LENGTH 64 // length used for max everything (arbitrary)
 
@@ -90,7 +90,7 @@ int ClientUsernameHandler(char *userName, char *peerName, int socketfd){
     return 0;
 }
 // main function
-int ClientMainFunc(char *ipAdress, int serverPort, char *userName){
+int ClientMainFunc(char *ipAdress, int serverPort, char *clientUserName){
     int socketfd;
     char peerName[MAX_LENGTH];
     struct sockaddr_in server_addr;
@@ -113,11 +113,11 @@ int ClientMainFunc(char *ipAdress, int serverPort, char *userName){
         return -1;
     }
     
-    if(ClientUsernameHandler(userName,peerName,socketfd)<0){
+    if(ClientUsernameHandler(clientUserName,peerName,socketfd)<0){
         return -1;
     };
 
-    ChatLoop(socketfd, rsaOut, rsa, peerName);
+    ChatLoop(socketfd, rsaOut, rsa, peerName, clientUserName);
         
     close(socketfd);
 
