@@ -1,5 +1,4 @@
--- see your own username
--- getting a message during writing terminates message
+-- see your own username instead of me
 -- make a groupchat part 
--- two seperate streams handeling input and output (two threads)
-    - message gets overwritten
+-- call safecomm with inputs of "server" "name" "port" "ip"
+-- change to ipv6
