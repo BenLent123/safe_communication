@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS=-Wall -Wextra -g
 LDFLAGS=-lssl -lcrypto -lreadline
-SRC = src/com.c src/sockethandler.c src/encryption.c src/chathandler.c
+SRC = src/main.c src/sockethandler.c src/encryption.c src/chathandler.c
 OUT = safecom
 
 all: $(OUT)
