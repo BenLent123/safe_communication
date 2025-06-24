@@ -34,7 +34,9 @@ void ChatLoop(int socketfd, RSA *rsaOut, RSA *rsa, char *peerUserName, char *you
 
     printf("----CHAT BEGINS HERE-----.\n");
 
-    rl_callback_handler_install("me: ", handle_user_input); // Only ONCE
+    char prompt[64];
+    snprintf(prompt, sizeof(prompt), "%s: ", yourUserName);
+    rl_callback_handler_install(prompt, handle_user_input); // Use your username as prompt
 
     while (1) {
         int ret = poll(pfds, 2, -1);
@@ -56,6 +58,22 @@ void ChatLoop(int socketfd, RSA *rsaOut, RSA *rsa, char *peerUserName, char *you
             if (decryptedLen > 0) {
                 decrypted[decryptedLen] = '\0';
 
+                // Check for chat end message
+                if (strcmp((char*)decrypted, "---THE CHAT HAS ENDED---.\n") == 0) {
+                    char *saved_line = rl_copy_text(0, rl_end);
+                    int saved_point = rl_point;
+                    rl_set_prompt("");
+                    rl_replace_line("", 0);
+                    rl_redisplay();
+                    printf("\r---THE CHAT HAS ENDED---.\n");
+                    rl_set_prompt(prompt);
+                    rl_replace_line(saved_line, 0);
+                    rl_point = saved_point;
+                    rl_redisplay();
+                    free(saved_line);
+                    break; // Optionally exit the chat loop
+                }
+
                 char *sep = strchr((char*)decrypted, ':');
                 if (sep) {
                     *sep = '\0';
@@ -68,7 +86,7 @@ void ChatLoop(int socketfd, RSA *rsaOut, RSA *rsa, char *peerUserName, char *you
                         rl_replace_line("", 0);
                         rl_redisplay();
                         printf("\r%s: %s\n", sender, msg);
-                        rl_set_prompt("me: ");
+                        rl_set_prompt(prompt);
                         rl_replace_line(saved_line, 0);
                         rl_point = saved_point;
                         rl_redisplay();
@@ -81,7 +99,7 @@ void ChatLoop(int socketfd, RSA *rsaOut, RSA *rsa, char *peerUserName, char *you
                     rl_replace_line("", 0);
                     rl_redisplay();
                     printf("\r%s: %s\n", peerUserName, decrypted);
-                    rl_set_prompt("me: ");
+                    rl_set_prompt(prompt);
                     rl_replace_line(saved_line, 0);
                     rl_point = saved_point;
                     rl_redisplay();
@@ -112,7 +130,19 @@ void ChatLoop(int socketfd, RSA *rsaOut, RSA *rsa, char *peerUserName, char *you
                 }
 
                 if (strcmp(user_input_line, "q") == 0) {
-                    printf("your quitting the chat...\n");
+                    // Print without username prompt
+                    char *saved_line = rl_copy_text(0, rl_end);
+                    int saved_point = rl_point;
+                    rl_set_prompt("");
+                    rl_replace_line("", 0);
+                    rl_redisplay();
+                    printf("\ryou quit the chat...\n");
+                    rl_set_prompt(prompt);
+                    rl_replace_line(saved_line, 0);
+                    rl_point = saved_point;
+                    rl_redisplay();
+                    free(saved_line);
+
                     char quitMsg[MAX_LENGTH];
                     snprintf(quitMsg, MAX_LENGTH, "---THE CHAT HAS ENDED---.\n");
                     int encryptedLen = EncryptedWithPublicKey((unsigned char*)quitMsg, encrypted, rsaOut);
@@ -128,9 +158,8 @@ void ChatLoop(int socketfd, RSA *rsaOut, RSA *rsa, char *peerUserName, char *you
             free(user_input_line);
             user_input_line = NULL;
             user_input_ready = 0;
-            // DO NOT reinstall the prompt here!
-            // Just let readline handle it.
-            rl_set_prompt("me: ");
+            // Set prompt to your username
+            rl_set_prompt(prompt);
             rl_replace_line("", 0);
             rl_redisplay();
         }

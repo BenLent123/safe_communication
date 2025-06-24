@@ -1,13 +1,13 @@
-CC=gcc
+CC = gcc
 CFLAGS=-Wall -Wextra -g
 LDFLAGS=-lssl -lcrypto -lreadline
-SRC=src/server.c src/client.c src/interface.c src/chathandler.c src/encryption.c
-TARGET=safecomm
+SRC = src/com.c src/sockethandler.c src/encryption.c src/chathandler.c
+OUT = safecom
 
-all: $(TARGET)
+all: $(OUT)
 
-$(TARGET): $(SRC)
-	$(CC) $(SRC) $(CFLAGS) $(LDFLAGS) -o $(TARGET)
+$(OUT): $(SRC)
+	$(CC) $(SRC) $(CFLAGS) $(LDFLAGS) -o $(OUT)
 
 clean:
-	rm -f $(TARGET)
+	rm -f $(OUT)

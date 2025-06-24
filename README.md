@@ -2,19 +2,20 @@
 
 ## Description
 
-This project is an exploration into openssl and the communication capabilities of C, by any means this project is not done nor.... fully memmory safe (memmory safety? whats that, just write that shiii out of bounds :3). This project uses sockets and encryption via openSSL to allow safe communication between a client and server (who is also another client), there is no inbetween connections one person is the "server" the other the "client". That is about it ! ^_^ enjoy
+This project is an exploration into the communication capabilities of C, by any means this project is not done nor.... fully memmory safe (memmory safety? whats that, just write that shiii out of bounds :3). This project uses sockets and encryption via openSSL to allow safe communication between a client and server (who is also another client), there is no inbetween connections one person is the "server" the other the "client". That is about it ! ^_^ enjoy
 
 THIS IS ALL CURRENTLY ONLY FOR LINUX
 ---
 
 ## Features
 
-- Public Private Key encryption via OPENSSL
+- Public Private Key encryption via OPENSSL (deprecated RN ill check if i can change that)
 - direct IP&PC Port communication between a server and client
-- username personalization
-- dynamic two-way chat experience using poll.h (only 1 thread)
+- username personalization (crazy IK)
+- dynamic two-way chat experience using poll abd select (only 1 thread)
 - written all in c so consider insanity of doing this a feature
-- recieving during write does not interrupt writing
+- recieving during write does not interrupt writing via readline
+- quiting chat is possible
 
 ---
 
@@ -38,7 +39,7 @@ make
 ## Usage
 
 ```sh
-./communication
+./safecom [h|j] [port] [ipv4 IP] [username]
 ```
 
 ---

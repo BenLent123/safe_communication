@@ -7,11 +7,10 @@
 #include <stddef.h>
 
 // Key generation and cleanup
-int GenerateKeyPair(RSA **rsa, BIGNUM **bn);
 void CleanUp(RSA *rsa, BIGNUM *bn, BIO *pub, char *pub_key);
+int GenerateKey(RSA **rsa, BIGNUM **bn, char **pubKey, size_t *pubKeyLen);
 
 // Public key export/import
-int ExportPublicKey(RSA *rsa, char **pubKey, size_t *pubKeyLen); 
 int SendPublicKey(int socketfd, size_t pubKeyLen, char *pubKey);
 int ExtractPublicKey(int socketfd, RSA **rsa_out);
 
