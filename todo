@@ -1,5 +1,2 @@
--- see your own username
--- getting a message during writing terminates message
+-- make a server for clients to connect to raspberry pi
 -- make a groupchat part 
--- two seperate streams handeling input and output (two threads)
-    - message gets overwritten

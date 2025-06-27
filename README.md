@@ -46,10 +46,10 @@ make
 
 ## Contributing
 
-I guess i dont really expect anyone to contribute but if you do or wanna use it feel free, anything else drop a message lol (dont use this to do so *skull emoji*)
+I guess i dont really expect anyone to contribute, but feel free to use it or idk. Anything else drop a message lol (dont use this to do so *skull emoji*)
 
 ---
 
 ## License
-
-[MIT](LICENSE)
+Free to use and code is "As is", I do not have any liability what happens with this code or if 
+this is used
