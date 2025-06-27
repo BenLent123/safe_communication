@@ -6,9 +6,17 @@
 
 int main(int argc, char *argv[]){   
     
-    if (argc < 2 || strcmp(argv[1], "help") == 0) {
-        printf("not enough arguments, Usage: %s [\"h\" for hosting)|\"j\" for joining] [port] [serverIP (IPV4) (only for joining) (\"l\" for localhost)]\n", argv[0]);
-        return 1;
+    if (argc < 2 ) {
+
+        printf("not enough arguments, type help for layout and valid arguments.\n");
+
+        return -1;
+    }
+    if(strcmp(argv[1], "help") == 0){
+
+        printf("Usage: %s [\"h\" for hosting)|\"j\" for joining|\"help\" for all commands] [port] [serverIP (IPV4) (only for joining) (\"l\" for localhost)]\n", argv[0]);
+        
+        return -1;
     }
 
     if (strcmp(argv[1], "h") == 0) {
@@ -34,7 +42,7 @@ int main(int argc, char *argv[]){
 
         if (argc < 5) {
         printf("not enough arguments for joining, Usage: %s [j] [port server is hosting on] [serverIP (IPV4) or \"l\" for localhost] [displayName (16 chars)]\n", argv[0]);
-        return 1;
+        return -1;
         
     }
         int port = atoi(argv[2]);
@@ -43,7 +51,7 @@ int main(int argc, char *argv[]){
 
         if (port <= 0) {
             printf("Invalid port number.\n");
-            return 1;
+            return -1;
         }
 
         if (serverIp == NULL || strlen(serverIp) == 0) {
@@ -62,7 +70,7 @@ int main(int argc, char *argv[]){
         
     } else {
         printf("Invalid argument, type help for layout and valid arguments.\n");
-        return 1;
+        return -1;
     }
 
     return 0;
