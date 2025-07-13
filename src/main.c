@@ -12,6 +12,7 @@ int main(int argc, char *argv[]){
 
         return -1;
     }
+    
     if(strcmp(argv[1], "help") == 0){
 
         printf("Usage: %s [\"h\" for hosting)|\"j\" for joining|\"help\" for all commands] [port] [serverIP (IPV4) (only for joining) (\"l\" for localhost)]\n", argv[0]);
@@ -23,6 +24,10 @@ int main(int argc, char *argv[]){
         
         if (argc < 4) {
         printf("missing arguments to host, Usage: %s [h] [port] [displayName (16 chars)] \n", argv[0]);
+        return -1;
+        }
+        if (argc > 4) {
+        printf("to many arguments\n");
         return -1;
         }
 
@@ -42,9 +47,12 @@ int main(int argc, char *argv[]){
 
         if (argc < 5) {
         printf("not enough arguments for joining, Usage: %s [j] [port server is hosting on] [serverIP (IPV4) or \"l\" for localhost] [displayName (16 chars)]\n", argv[0]);
+        return -1;    
+        }
+        if (argc > 5) {
+        printf("to many arguments\n");
         return -1;
-        
-    }
+        }
         int port = atoi(argv[2]);
         const char *serverIp = argv[3];
         char *userName = argv[4];
