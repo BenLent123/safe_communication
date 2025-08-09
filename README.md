@@ -4,7 +4,7 @@
 
 This project is an exploration into the communication capabilities of C, by any means this project is not done nor.... fully memmory safe (memmory safety? whats that, just write that shiii out of bounds :3). This project uses sockets and encryption via openSSL to allow safe communication between a client and server (who is also another client), there is no inbetween connections one person is the "server" the other the "client". That is about it ! ^_^ enjoy
 
-THIS IS ALL CURRENTLY ONLY FOR LINUX
+THIS IS ALL CURRENTLY ONLY FOR LINUX AND NOT FULLY SAFE !!!
 ---
 
 ## Features
